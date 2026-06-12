@@ -32,7 +32,30 @@ All notes are stored as PDFs inside the [`udemy_notes/`](udemy_notes/) folder.
 
 ### 00 — Introduction & Exam Overview
 [`00_MLA-C01_intro.pdf`](udemy_notes/00_MLA-C01_intro.pdf)
-Exam structure, domains, scoring, and key AWS ML services overview.
+
+#### Target Candidate
+The exam is aimed at engineers with:
+- ~1 year of hands-on experience with SageMaker and other ML engineering services
+- ~1 year of background in software development, DevOps, data engineering, or data science
+- Working knowledge of ML algorithms, data engineering fundamentals, and CI/CD practices
+
+> **Not required:** designing end-to-end ML solutions from scratch, or depth in NLP / Computer Vision.
+
+#### Domains Covered
+
+| # | Domain | Key AWS Services & Topics |
+|---|---|---|
+| 1 | **Data Ingestion & Storage** | Types & formats of data, data warehouses/lakes/lakehouses, ETL pipelines & orchestration — EBS, EFS, FSx, S3, Kinesis |
+| 2 | **Data Transformation, Integrity & Feature Engineering** | Missing/unbalanced/outlier data, common transformations, SageMaker data processing — EMR, SageMaker, Glue |
+| 3 | **AWS Managed AI Services** | Personalize, Polly, Rekognition, Comprehend, Forecast, Lex, Textract, Transcribe, Translate, Fraud Detector, Kendra, Lookout for Equipment, Amazon Q |
+| 4 | **SageMaker Built-In Algorithms** | Pre-built algorithms available natively in SageMaker |
+| 5 | **Model Training, Tuning & Evaluation** | Deep learning fundamentals, tuning techniques, model performance metrics, Automatic Model Tuning (AMT) |
+| 6 | **Generative AI Fundamentals** | Transformer architecture, self-attention, how GPT works, SageMaker JumpStart |
+| 7 | **Building Gen AI Apps with Bedrock** | Foundation models, RAG, Knowledge Bases, Vector Stores, Guardrails, LLM Agents |
+| 8 | **ML Operations (MLOps)** | SageMaker in depth, ECS, ECR, CloudFormation, CDK, CodeDeploy, CodeBuild, CodePipeline, EventBridge, Step Functions, MWAA |
+| 9 | **Security, Identity & Compliance** | Securing SageMaker, IAM, KMS, Macie, Secrets Manager, WAF, Shield, VPC, PrivateLink |
+| 10 | **Management & Governance** | CloudWatch, CloudFormation, Config, CloudTrail, X-Ray, Trusted Advisor, Budgets, Cost Explorer |
+| 11 | **ML Best Practices** | AWS Well-Architected Machine Learning Lens |
 
 ### 01 — Data Ingestion & Storage
 [`01_MLA-C01_data_ingestion_storage.pdf`](udemy_notes/01_MLA-C01_data_ingestion_storage.pdf)
