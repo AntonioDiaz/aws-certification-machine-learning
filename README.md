@@ -174,6 +174,9 @@ The exam is aimed at engineers with:
 
 #### Amazon S3
 
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/a97b471b-28d1-4a23-bf9e-d1ff48480921" />  
+&nbsp;
+
 **Key concepts**
 - Objects stored in globally-unique-named **buckets** (region-level)
 - Object key = full path (prefix + object name); no real directories
