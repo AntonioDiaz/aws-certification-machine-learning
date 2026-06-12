@@ -107,7 +107,9 @@ The exam is aimed at engineers with:
 ---
 
 #### Data Storage Architectures
-<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/90365e14-df40-4cf6-a7c5-3eee295d98f5" />
+  
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/90365e14-df40-4cf6-a7c5-3eee295d98f5" />  
+
 **Data Warehouse**
 - Centralized repository optimized for analysis with structured data
 - Schema-on-write (ETL: Extract → Transform → Load)
