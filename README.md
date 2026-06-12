@@ -19,19 +19,36 @@ Personal study notes for the **AWS Certified Machine Learning Engineer – Assoc
 
 ## Table of Contents
 
-1. [Introduction & Exam Overview](#00--introduction--exam-overview)
-2. [Data Ingestion & Storage](#01--data-ingestion--storage)
-3. [Data Transformation](#02--data-transformation)
-4. [AWS Managed ML Services](#03--aws-managed-ml-services)
-5. [Amazon SageMaker](#04--amazon-sagemaker)
-6. [Model Training, Tuning & Evaluation](#05--model-training-tuning--evaluation)
-7. [Generative AI Fundamentals](#06--generative-ai-fundamentals)
-8. [Amazon Bedrock](#07--amazon-bedrock)
-9. [ML Operations (MLOps)](#08--ml-operations-mlops)
-10. [Security](#09--security)
-11. [Management & Governance](#10--management--governance)
-12. [ML Best Practices](#11--ml-best-practices)
-13. [Exam Preparation](#12--exam-preparation)
+- [AWS Machine Learning Specialty — Study Notes](#aws-machine-learning-specialty--study-notes)
+  - [Resources](#resources)
+  - [Table of Contents](#table-of-contents)
+  - [Notes](#notes)
+    - [00 — Introduction \& Exam Overview](#00--introduction--exam-overview)
+      - [Target Candidate](#target-candidate)
+      - [Domains Covered](#domains-covered)
+    - [01 — Data Ingestion \& Storage](#01--data-ingestion--storage)
+      - [Types of Data](#types-of-data)
+      - [Properties of Data (The 3 V's)](#properties-of-data-the-3-vs)
+      - [Data Storage Architectures](#data-storage-architectures)
+      - [ETL Pipelines](#etl-pipelines)
+      - [Data Formats](#data-formats)
+      - [Amazon S3](#amazon-s3)
+      - [EC2 Instance Storage](#ec2-instance-storage)
+      - [Amazon Kinesis](#amazon-kinesis)
+      - [Amazon MSK (Managed Streaming for Apache Kafka)](#amazon-msk-managed-streaming-for-apache-kafka)
+    - [02 — Data Transformation](#02--data-transformation)
+    - [03 — AWS Managed ML Services](#03--aws-managed-ml-services)
+    - [04 — Amazon SageMaker](#04--amazon-sagemaker)
+    - [05 — Model Training, Tuning \& Evaluation](#05--model-training-tuning--evaluation)
+    - [06 — Generative AI Fundamentals](#06--generative-ai-fundamentals)
+    - [07 — Amazon Bedrock](#07--amazon-bedrock)
+    - [08 — ML Operations (MLOps)](#08--ml-operations-mlops)
+    - [09 — Security](#09--security)
+    - [10 — Management \& Governance](#10--management--governance)
+    - [11 — ML Best Practices](#11--ml-best-practices)
+    - [12 — Exam Preparation](#12--exam-preparation)
+  - [How to Use These Notes](#how-to-use-these-notes)
+  - [Exam Details](#exam-details)
 
 ---
 
@@ -90,7 +107,7 @@ The exam is aimed at engineers with:
 ---
 
 #### Data Storage Architectures
-
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/90365e14-df40-4cf6-a7c5-3eee295d98f5" />
 **Data Warehouse**
 - Centralized repository optimized for analysis with structured data
 - Schema-on-write (ETL: Extract → Transform → Load)
