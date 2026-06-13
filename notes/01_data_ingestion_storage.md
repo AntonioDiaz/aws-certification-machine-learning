@@ -6,15 +6,17 @@
 
 ## Table of Contents
 
-- [Types of Data](#types-of-data)
-- [Properties of Data (The 3 V's)](#properties-of-data-the-3-vs)
-- [Data Storage Architectures](#data-storage-architectures)
-- [ETL Pipelines](#etl-pipelines)
-- [Data Formats](#data-formats)
-- [Amazon S3](#amazon-s3)
-- [EC2 Instance Storage](#ec2-instance-storage)
-- [Amazon Kinesis](#amazon-kinesis)
-- [Amazon MSK (Managed Streaming for Apache Kafka)](#amazon-msk-managed-streaming-for-apache-kafka)
+- [01 — Data Ingestion \& Storage](#01--data-ingestion--storage)
+  - [Table of Contents](#table-of-contents)
+  - [Types of Data](#types-of-data)
+  - [Properties of Data (The 3 V's)](#properties-of-data-the-3-vs)
+  - [Data Storage Architectures](#data-storage-architectures)
+  - [ETL Pipelines](#etl-pipelines)
+  - [Data Formats](#data-formats)
+  - [Amazon S3](#amazon-s3)
+  - [EC2 Instance Storage](#ec2-instance-storage)
+  - [Amazon Kinesis](#amazon-kinesis)
+  - [Amazon MSK (Managed Streaming for Apache Kafka)](#amazon-msk-managed-streaming-for-apache-kafka)
 
 ---
 
@@ -39,6 +41,7 @@
 ## Data Storage Architectures
 
 <img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/90365e14-df40-4cf6-a7c5-3eee295d98f5" />
+&nbsp;
 
 **Data Warehouse**
 - Centralized repository optimized for analysis with structured data
@@ -105,6 +108,7 @@
 ## Amazon S3
 
 <img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/a97b471b-28d1-4a23-bf9e-d1ff48480921" />
+&nbsp;
 
 **Key concepts**
 - Objects stored in globally-unique-named **buckets** (region-level)
@@ -206,6 +210,7 @@ All classes share **11 9's durability** (99.999999999%).
 | Cost | Lower | Higher (~3× gp2) |
 
 **Amazon FSx**
+Amazon FSx provides fully managed file systems optimized for specific workloads. It supports multiple file system types, each with its own protocol and best use cases.
 
 | Variant | Protocol | Best For |
 |---|---|---|
@@ -215,12 +220,14 @@ All classes share **11 9's durability** (99.999999999%).
 | FSx for OpenZFS | NFS | ZFS migration; up to 1M IOPS, < 0.5ms latency |
 
 **FSx for Lustre deployment options**
+FSx for Lustre is a high-performance file system optimized for workloads that require fast storage and processing. It can be deployed in two main configurations:
 - **Scratch**: temporary, high burst (6× faster), no replication — short-term processing
 - **Persistent**: replicated within AZ, replace failed files in minutes — long-term sensitive data
 
 ---
 
 ## Amazon Kinesis
+Amazon Kinesis is a platform for real-time data streaming and analytics. It allows you to collect, process, and analyze streaming data at scale.
 
 **Kinesis Data Streams**
 - Collect and store real-time streaming data
