@@ -227,7 +227,7 @@ FSx for Lustre is a high-performance file system optimized for workloads that re
 ## Amazon Kinesis
 Amazon Kinesis is a platform for real-time data streaming and analytics. It allows you to collect, process, and analyze streaming data at scale.
 
-**Kinesis Data Streams**
+**Kinesis Data Streams (KDS)**
 - Collect and store real-time streaming data
 - Retention up to **365 days**; replay capability
 - Data up to **1 MB**; ordering guaranteed per Partition Key
@@ -236,7 +236,7 @@ Amazon Kinesis is a platform for real-time data streaming and analytics. It allo
   - **Provisioned**: choose shards manually (1 MB/s in, 2 MB/s out per shard); pay per shard-hour
   - **On-Demand**: auto-scales based on 30-day peak; pay per GB in/out
 
-**Amazon Data Firehose** (formerly Kinesis Data Firehose)
+**Amazon Data Firehose (ADF)** (formerly Kinesis Data Firehose)
 - Fully managed, serverless, near-real-time (buffered delivery)
 - Destinations: S3, Redshift, OpenSearch, Splunk, Datadog, MongoDB, custom HTTP
 - Supports CSV, JSON, Parquet, Avro, Raw Text, Binary; converts to Parquet/ORC; compresses with gzip/snappy
