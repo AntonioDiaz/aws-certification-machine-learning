@@ -19,10 +19,8 @@ Personal study notes for the **AWS Certified Machine Learning Engineer – Assoc
 
 ## Table of Contents
 
-- [AWS Machine Learning Specialty — Study Notes](#aws-machine-learning-specialty--study-notes)
-  - [Resources](#resources)
-  - [Table of Contents](#table-of-contents)
-  - [Notes](#notes)
+- [Resources](#resources)
+- [Notes](#notes)
     - [00 — Introduction \& Exam Overview](#00--introduction--exam-overview)
       - [Target Candidate](#target-candidate)
       - [Domains Covered](#domains-covered)
