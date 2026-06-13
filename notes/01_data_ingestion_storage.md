@@ -1,22 +1,20 @@
-# 01 — Data Ingestion & Storage
+# 01 — Data Ingestion & Storage <!-- omit in toc -->
 
 > Source: [`01_MLA-C01_data_ingestion_storage.pdf`](../udemy_notes/01_MLA-C01_data_ingestion_storage.pdf)
 
 ---
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
-- [01 — Data Ingestion \& Storage](#01--data-ingestion--storage)
-  - [Table of Contents](#table-of-contents)
-  - [Types of Data](#types-of-data)
-  - [Properties of Data (The 3 V's)](#properties-of-data-the-3-vs)
-  - [Data Storage Architectures](#data-storage-architectures)
-  - [ETL Pipelines](#etl-pipelines)
-  - [Data Formats](#data-formats)
-  - [Amazon S3](#amazon-s3)
-  - [EC2 Instance Storage](#ec2-instance-storage)
-  - [Amazon Kinesis](#amazon-kinesis)
-  - [Amazon MSK (Managed Streaming for Apache Kafka)](#amazon-msk-managed-streaming-for-apache-kafka)
+- [Types of Data](#types-of-data)
+- [Properties of Data (The 3 V's)](#properties-of-data-the-3-vs)
+- [Data Storage Architectures](#data-storage-architectures)
+- [ETL Pipelines](#etl-pipelines)
+- [Data Formats](#data-formats)
+- [Amazon S3](#amazon-s3)
+- [EC2 Instance Storage](#ec2-instance-storage)
+- [Amazon Kinesis](#amazon-kinesis)
+- [Amazon MSK (Managed Streaming for Apache Kafka)](#amazon-msk-managed-streaming-for-apache-kafka)
 
 ---
 
