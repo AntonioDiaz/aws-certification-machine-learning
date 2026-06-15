@@ -1,0 +1,453 @@
+# 02 — Data Transformation, Integrity & Feature Engineering
+
+> Source: [`02_MLA-C01_intro_data_transformation.pdf`](../udemy_notes/02_MLA-C01_intro_data_transformation.pdf)
+
+---
+
+## Table of Contents
+
+- [Amazon EMR](#amazon-emr)
+- [Apache Spark on EMR](#apache-spark-on-emr)
+- [Feature Engineering](#feature-engineering)
+- [Handling Missing Data](#handling-missing-data)
+- [Handling Unbalanced Data](#handling-unbalanced-data)
+- [Handling Outliers](#handling-outliers)
+- [Common Transformations](#common-transformations)
+- [Amazon SageMaker — Data Preparation](#amazon-sagemaker--data-preparation)
+- [AWS Glue](#aws-glue)
+- [Amazon Athena](#amazon-athena)
+
+---
+
+## Amazon EMR
+
+**What is EMR?**
+- Elastic MapReduce — managed Hadoop framework on EC2 instances
+- Includes Spark, HBase, Presto, Flink, Hive & more
+- EMR Notebooks for interactive development
+- Deep AWS integration (EC2, VPC, S3, CloudWatch, IAM, CloudTrail, Data Pipeline)
+
+**Cluster Node Types**
+
+| Node | Role | Notes |
+|---|---|---|
+| **Master** | Manages the cluster | Single EC2 instance; m4.large (< 50 nodes), m4.xlarge (> 50 nodes) |
+| **Core** | Hosts HDFS data and runs tasks | Can scale up/down with some risk of data loss |
+| **Task** | Runs tasks only, no data hosting | Safe to remove; ideal for Spot instances |
+
+**EMR Usage Patterns**
+- **Transient clusters**: spin up, run job, terminate — cost efficient
+- **Long-running clusters**: use Reserved Instances to save cost
+- Submit jobs by connecting to master or via ordered steps in the console
+- **EMR Serverless**: AWS manages node scaling automatically; you choose runtime (Spark, Hive, Presto)
+
+> [!WARNING]
+> EMR Serverless application lifecycle is NOT fully automatic. You must call `CreateApplication`, `StartApplication`, `StopApplication`, and **`DeleteApplication`** explicitly to avoid excess charges.
+
+**EMR Serverless: Pre-Initialized Capacity**
+- Spark adds **10% overhead** to requested driver/executor memory
+- Set initial capacity at least 10% above your job's actual requirements
+
+**EMR Storage Options**
+
+| Storage | Description |
+|---|---|
+| HDFS | Native Hadoop distributed file system |
+| EMRFS | Access S3 as if it were HDFS; uses DynamoDB for consistency tracking |
+| Local file system | Ephemeral, node-local |
+| EBS for HDFS | Persistent EBS-backed HDFS |
+
+**EMR on EKS**
+- Submit Spark jobs on EKS without provisioning clusters
+- Share resources between Spark and other Kubernetes workloads
+
+**EMR Security**
+- IAM policies, Kerberos, SSH, IAM roles
+- Lake Formation integration; native Apache Ranger support (Hadoop/Hive data security)
+- EMRFS: SSE or CSE at rest; TLS in transit between EMR nodes and S3
+- Spark: encrypted driver ↔ executor communication; Hive ↔ Glue Metastore uses TLS
+
+**Choosing Instance Types**
+
+| Use Case | Instance Type |
+|---|---|
+| General / default | m4.large |
+| Waiting on external I/O | t2.medium |
+| Better performance | m4.xlarge |
+| Computation-intensive | High CPU instances |
+| Database / memory cache | High memory instances |
+| NLP / ML (network + CPU) | Cluster compute instances |
+| Accelerated AI/ML | GPU instances (g3, g4, p2, p3) |
+
+> Spot instances are ideal for **task nodes**. Avoid on core/master unless testing or very cost-sensitive (risk of partial data loss).
+
+---
+
+## Apache Spark on EMR
+
+**Hadoop stack:** HDFS + YARN + MapReduce → Spark replaces MapReduce for in-memory processing.
+
+**Spark Architecture**
+- **Driver Program** (with Spark Context) coordinates the job
+- **Cluster Manager** (Spark or YARN) allocates resources
+- **Executors** run tasks and cache data in memory across worker nodes
+
+**Spark Components**
+
+| Component | Purpose |
+|---|---|
+| Spark Core | Base engine |
+| Spark SQL | SQL queries over structured data |
+| Spark Streaming | Real-time stream processing |
+| MLLib | Built-in ML algorithms |
+| GraphX | Graph computation |
+
+**Spark MLLib algorithms:** logistic regression, naïve Bayes, regression, decision trees, ALS (recommendation), K-Means clustering, LDA (topic modeling), SVD, PCA, ML pipelines
+
+**Spark Structured Streaming**
+- Read from S3, Kinesis, Kafka; write to JDBC, S3, etc.
+- Kinesis integration via Kinesis Client Library (KCL)-backed Spark Dataset
+
+**Interactive Tools**
+- **Zeppelin**: run Spark interactively; execute SparkSQL; visualize results as charts
+- **EMR Notebook**: like Zeppelin with more AWS integration; backed up to S3; VPC-hosted; console access only
+
+---
+
+## Feature Engineering
+
+> "Applied machine learning is basically feature engineering." — Andrew Ng
+
+Feature engineering applies domain knowledge to create better features for model training:
+- Which features to use?
+- How to transform features?
+- How to handle missing data?
+- Should new features be derived from existing ones?
+
+**Curse of Dimensionality**
+- Too many features → sparse data → poor model performance
+- Solution: select the most relevant features (domain knowledge) or apply dimensionality reduction
+- Techniques: **PCA**, **K-Means**
+
+**TF-IDF (Term Frequency – Inverse Document Frequency)**
+- Measures how relevant a word is to a specific document vs. a corpus
+- Formula: `TF / DF` (or `TF * IDF`) — high score = important and unique to the document
+- Uses log of IDF to handle exponential word frequency distributions
+- Assumes "bag of words" representation; words can be hashed for efficiency
+- **N-grams**: extend TF-IDF to bigrams, trigrams for multi-word relevance
+- Spark makes TF-IDF practical at scale
+
+---
+
+## Handling Missing Data
+
+| Technique | Description | When to Use |
+|---|---|---|
+| **Mean/Median Replacement** | Replace with column mean (median if outliers present) | Fast, simple; not for categorical data |
+| **Dropping rows** | Remove rows with missing values | Only if few rows missing and no bias introduced; never the "best" answer |
+| **KNN Imputation** | Average values of K nearest neighbors | Numerical data; can handle categorical via Hamming distance |
+| **Deep Learning** | Train a model to predict missing values | Works well for categorical data |
+| **Regression** | Fit linear/non-linear relationships between features | Structured numerical data |
+| **MICE** | Multiple Imputation by Chained Equations | Most advanced; handles complex dependencies |
+| **Get more data** | Collect real data instead of imputing | Always the best option when feasible |
+
+> [!TIP]
+> Median is preferred over mean when outliers are present. For categorical columns, imputing with the most frequent value is a common fallback.
+
+---
+
+## Handling Unbalanced Data
+
+Unbalanced data: large discrepancy between positive (target) and negative cases — common in fraud detection, anomaly detection, etc.
+
+| Technique | Description | Notes |
+|---|---|---|
+| **Oversampling** | Duplicate samples from minority class | Simple, can cause overfitting |
+| **Undersampling** | Remove samples from majority class | Loses data; avoid unless scaling is a concern |
+| **SMOTE** | Synthetic Minority Over-sampling Technique | Generates new minority samples via KNN; also undersamples majority; generally best option |
+| **Adjust threshold** | Raise classification probability threshold | Reduces false positives but increases false negatives |
+
+**SMOTE process:**
+1. For each minority sample, run K-nearest-neighbors
+2. Create new synthetic sample from the mean of the KNN result
+
+---
+
+## Handling Outliers
+
+**Standard Deviation approach:**
+- Variance (σ²) = average of squared differences from the mean
+- Standard Deviation (σ) = √variance
+- Data points > 1σ from mean are "unusual"; use common sense to pick the multiple
+
+**When to remove outliers:**
+- Collaborative filtering: a single user rating thousands of movies may distort recommendations
+- Web logs: outliers may represent bots
+
+**When NOT to remove outliers:**
+- When they represent real, meaningful data (e.g., billionaires in income surveys)
+
+> [!IMPORTANT]
+> AWS **Random Cut Forest** (available in QuickSight, Kinesis Analytics, SageMaker) is designed specifically for outlier detection at scale.
+
+---
+
+## Common Transformations
+
+| Transformation | Description | Use Case |
+|---|---|---|
+| **Binning** | Group values into ranges (buckets) | Reduce precision noise; ordinal encoding of continuous data |
+| **Quantile binning** | Bin by distribution percentiles | Ensures even bin sizes |
+| **Log transform** | Apply log to features with exponential trends | Income, word frequencies |
+| **Polynomial features** | Add x², √x alongside x | Allows learning super/sub-linear functions (e.g., YouTube recommendations) |
+| **One-hot encoding** | Binary column per category value | Categorical → numerical for neural nets |
+| **Scaling / Normalization** | Normalize features to comparable ranges | Required by most models; use MinMaxScaler or StandardScaler |
+| **Shuffling** | Randomize order of training samples | Prevents learning order-based residual signals |
+
+---
+
+## Amazon SageMaker — Data Preparation
+
+### SageMaker Overview
+
+SageMaker handles the full ML workflow: data prep → training → deployment.
+
+- **Notebook Instances** (EC2-backed): S3 access, Scikit-learn, Spark, TensorFlow; spin up training jobs and deploy models
+- **Data sources**: S3 (primary), Athena, EMR, Redshift, Amazon Keyspaces
+- **Preferred format**: RecordIO / Protobuf (varies by algorithm)
+- **SageMaker Processing**: copy data from S3, run a processing container, output results back to S3
+
+**SageMaker AI Domains**
+- Organize users, apps, and resources; share an EFS volume
+- User profiles → personal apps (Studio instances) with private EFS directory
+- Shared spaces → communal IDE with shared EFS directory
+
+**VPC configuration**
+- Default: two VPCs (one SageMaker-managed for internet, one user-owned for EFS)
+- "VPC Only" mode: all traffic routed through your own VPC
+
+**Training on SageMaker**
+- Create a training job with: S3 data URL, compute resources, output S3 URL, ECR training image
+- Training options: built-in algorithms · Spark MLLib · TensorFlow/MXNet/PyTorch/XGBoost · Hugging Face · custom Docker image · AWS Marketplace algorithms
+
+**Deploying Trained Models**
+- **Persistent endpoint**: real-time individual predictions
+- **Batch Transform**: predictions over entire datasets
+- **Inference Pipelines**: complex multi-step processing
+- **SageMaker Neo**: deploy to edge devices
+- **Elastic Inference**: accelerate deep learning models
+- **Automatic scaling**: increase endpoints under load
+- **Shadow Testing**: evaluate new model vs. live model to catch regressions
+
+---
+
+### SageMaker Ground Truth
+
+- Manages human labelers to generate training labels
+- Builds its own model as images are labeled; routes only ambiguous samples to humans
+- Can **reduce labeling cost by up to 70%**
+- Labeler sources: Amazon Mechanical Turk · internal team · professional labeling companies
+- **Ground Truth Plus**: fully managed turnkey solution; AWS experts manage labelers
+- Alternatives for auto-labeling: Rekognition (images), Comprehend (text/sentiment)
+
+**Amazon Mechanical Turk**
+- Crowdsourcing marketplace for human labeling tasks
+- Distributed virtual workforce; you set reward per item
+- Integrates with SageMaker Ground Truth and Amazon A2I
+
+---
+
+### SageMaker Data Wrangler
+
+Visual interface (in SageMaker Studio) for data preparation — no code required for most tasks.
+
+**Capabilities:**
+- Import, visualize, and transform data (300+ built-in transformations)
+- Custom transforms with Pandas, PySpark, PySpark SQL
+- "Quick Model" to rapidly validate data quality before full training
+- Image data transformations (resize, enhance, corrupt)
+- Balance data (oversampling, undersampling, SMOTE)
+- Impute missing data, handle outliers, dimensionality reduction (PCA)
+
+**Data sources:** S3 · Athena · Redshift · Lake Formation · SageMaker Feature Store · JDBC (Databricks, SaaS)
+
+**Export options:** SageMaker Processing · Pipelines · Feature Store · Notebook
+
+**Troubleshooting:**
+- Ensure Studio user has `AmazonSageMakerFullAccess` IAM policy
+- Check data source permissions
+- For "instance type not available" errors → request quota increase via Service Quotas
+
+---
+
+### SageMaker Model Monitor
+
+- Monitors deployed models for quality deviations; alerts via CloudWatch
+- No code required
+
+**Monitoring types:**
+
+| Type | Description |
+|---|---|
+| Data quality drift | Statistical properties of input features vs. a baseline |
+| Model quality drift | Accuracy / performance metrics vs. a baseline; integrates with Ground Truth labels |
+| Bias drift | Detects emerging bias in predictions (via Clarify) |
+| Feature attribution drift | Uses NDCG score to compare feature importance ranking between training and live data |
+
+**Integration:** Tensorboard · QuickSight · Tableau · SageMaker Studio
+
+---
+
+### SageMaker Clarify
+
+- Detects **pre-training bias** and explains model behavior
+- Integrated with Model Monitor for ongoing bias monitoring via CloudWatch
+
+**Pre-training bias metrics:**
+
+| Metric | What it measures |
+|---|---|
+| Class Imbalance (CI) | One demographic group has fewer training samples |
+| DPL | Imbalance of positive outcomes between groups |
+| KL / JS Divergence | How much outcome distributions diverge between groups |
+| Lp-norm (LP) | P-norm difference between outcome distributions |
+| TVD | L1-norm difference between outcome distributions |
+| Kolmogorov-Smirnov (KS) | Maximum divergence between group outcome distributions |
+| CDD | Disparity of outcomes between groups as a whole and by subgroups |
+
+**Explainability:**
+- **Shapley Values (SHAP)**: measures each feature's contribution to predictions by simulating feature removal; originated in game theory
+- **Asymmetric Shapley Values**: for time series — contribution of features at each time step
+- **Partial Dependence Plots (PDPs)**: visualize how feature values influence predictions
+
+---
+
+### SageMaker Feature Store
+
+Centralized repository for ML features — fast, secure access for training and inference.
+
+**Organization:**
+- **Feature Group**: collection of features (record identifier + feature name + event time)
+- **Online Store**: low-latency access via `PutRecord` / `GetRecord` APIs (streaming)
+- **Offline Store** (S3): batch access; automatically creates a Glue Data Catalog
+
+**Ingestion:** Kinesis · MSK · Spark · Data Wrangler · batch jobs
+
+**Security:** encrypted at rest and in transit · KMS customer master keys · IAM fine-grained access · AWS PrivateLink
+
+---
+
+### SageMaker Canvas
+
+No-code ML for business analysts:
+- Upload CSV, select prediction column, build model, make predictions
+- Supports classification and regression
+- Automatic data cleaning: missing values, outliers, duplicates
+- Can join datasets; share models with SageMaker Studio
+- Generative AI support via Bedrock or JumpStart foundation models
+
+---
+
+## AWS Glue
+
+Serverless ETL and data catalog service.
+
+**Glue Crawler / Data Catalog**
+- Crawls S3 (and RDS, Redshift, DynamoDB, most SQL DBs) to infer schema
+- Runs on a schedule or on demand
+- Populates the **Glue Data Catalog** (stores only metadata; original data stays in S3)
+- Once cataloged, unstructured data can be queried via Redshift Spectrum, Athena, EMR, QuickSight
+
+> [!IMPORTANT]
+> Plan your S3 partition structure **before** crawling. Glue extracts partitions based on your S3 folder hierarchy. Query pattern determines optimal layout: query by time → `yyyy/mm/dd/device`; query by device → `device/yyyy/mm/dd`.
+
+**Glue Studio**
+- Visual ETL workflow builder
+- Create DAGs for complex pipelines
+- Sources: S3, Kinesis, Kafka, JDBC
+- Targets: S3, Glue Data Catalog
+- Supports partitioning; visual job dashboard with status and run times
+
+**Glue Data Quality**
+- Define quality rules manually or use automatic recommendations
+- Uses **Data Quality Definition Language (DQDL)**
+- Results can fail the job or report to CloudWatch
+
+**AWS Glue DataBrew**
+- Visual data preparation tool; 250+ ready-made transformations
+- Input: S3, data warehouse, database → Output: S3
+- "Recipes" of transformations saved as reusable jobs
+- Can create datasets with custom SQL from Redshift and Snowflake
+- Security: KMS (customer master keys only) · SSL in transit · IAM · CloudWatch & CloudTrail
+
+**DataBrew PII Handling:**
+
+| Technique | DataBrew Operation |
+|---|---|
+| Substitution | `REPLACE_WITH_RANDOM…` |
+| Shuffling | `SHUFFLE_ROWS` |
+| Deterministic encryption | `DETERMINISTIC_ENCRYPT` |
+| Probabilistic encryption | `ENCRYPT` |
+| Decryption | `DECRYPT` |
+| Nulling / deletion | `DELETE` |
+| Masking | `MASK_CUSTOM`, `MASK_DATE`, `MASK_DELIMITER`, `MASK_RANGE` |
+| Hashing | `CRYPTOGRAPHIC_HASH` |
+
+---
+
+## Amazon Athena
+
+Serverless interactive SQL query service for S3 data — powered by Presto under the hood.
+
+**Key facts:**
+- No data loading required — data stays in S3
+- Supports: CSV, TSV, JSON, ORC (columnar, splittable), Parquet (columnar, splittable), Avro (splittable)
+- Compression: Snappy, Zlib, LZO, Gzip
+
+**Common use cases:** ad-hoc web log queries · staging data validation before Redshift load · analyze CloudTrail/CloudFront/VPC/ELB logs · Jupyter/Zeppelin/RStudio notebooks · QuickSight integration
+
+**Cost model:**
+- $5 per TB scanned
+- Successful and cancelled queries count; failed queries do not
+- DDL (`CREATE`/`ALTER`/`DROP`) is free
+- Use columnar formats (ORC, Parquet) to save 30–90% on query costs
+
+**Athena Workgroups**
+- Organize users/teams/workloads into isolated groups
+- Per-workgroup: query history · data scan limits · IAM policies · encryption settings
+- Integrates with IAM, CloudWatch, SNS
+
+**Security:**
+- IAM, ACLs, S3 bucket policies
+- Encrypt results at rest: SSE-S3, SSE-KMS, CSE-KMS
+- TLS in transit (Athena ↔ S3)
+- Cross-account S3 access via bucket policy
+
+**Anti-patterns:**
+- Formatted reports/visualization → use **QuickSight** instead
+- ETL pipelines → use **Glue** instead
+
+**Performance optimization:**
+- Use columnar formats (ORC, Parquet)
+- Fewer large files > many small files
+- Use partitions; run `MSCK REPAIR TABLE` to register new partitions added after the fact
+
+**ACID transactions (Apache Iceberg)**
+- Add `'table_type' = 'ICEBERG'` in `CREATE TABLE`
+- Supports concurrent row-level modifications and time travel queries
+- Compatible with EMR, Spark, and anything supporting Iceberg format
+- Run `OPTIMIZE table REWRITE DATA USING BIN_PACK` periodically to maintain performance
+
+**Fine-Grained Access to Glue Data Catalog:**
+- IAM-based database and table-level security
+- Map Athena operations (DROP TABLE, CREATE TABLE, etc.) to their IAM `glue:*` actions
+- At minimum: policy granting access to the target database and Glue Data Catalog in each region
+
+**CREATE TABLE AS SELECT (CTAS)**
+- Creates a new table from query results
+- Can convert data to a different format (e.g., convert CSV stored in S3 to Parquet or ORC)
+```sql
+CREATE TABLE new_table
+WITH (format = 'Parquet', write_compression = 'SNAPPY')
+AS SELECT * FROM old_table;
+```

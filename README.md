@@ -79,8 +79,10 @@ The exam is aimed at engineers with:
 Topics: data types, 3 V's, warehouse vs lake vs lakehouse, ETL pipelines, data formats (CSV/JSON/Avro/Parquet), S3, EBS, EFS, FSx, Kinesis, Amazon MSK.
 
 ### 02 — Data Transformation
-[`02_MLA-C01_intro_data_transformation.pdf`](udemy_notes/02_MLA-C01_intro_data_transformation.pdf)
-Feature engineering, ETL pipelines, AWS Glue DataBrew, and data preprocessing techniques.
+
+[Full notes →](notes/02_data_transformation.md)
+
+Topics: EMR (clusters, Serverless, Spark, MLLib), feature engineering, TF-IDF, missing data imputation, unbalanced data (SMOTE), outlier handling, transformations (binning, encoding, normalization), SageMaker (Data Wrangler, Ground Truth, Model Monitor, Clarify, Feature Store, Canvas), AWS Glue (Crawler, Studio, DataBrew, Data Quality), Amazon Athena.
 
 ### 03 — AWS Managed ML Services
 [`03_MLA-C01_aws_manage_services.pdf`](udemy_notes/03_MLA-C01_aws_manage_services.pdf)

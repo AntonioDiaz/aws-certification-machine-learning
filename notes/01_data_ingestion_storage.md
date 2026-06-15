@@ -184,6 +184,8 @@ All classes share **11 9's durability** (99.999999999%).
 
 ## EC2 Instance Storage
 
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/f754ad02-f07f-4459-844f-a2cc0206a337" />
+
 **EBS (Elastic Block Store)**
 - Network drive attached to one instance (io1/io2 support multi-attach)
 - Bound to a single AZ; migrate across AZ via snapshot
@@ -225,6 +227,9 @@ FSx for Lustre is a high-performance file system optimized for workloads that re
 ---
 
 ## Amazon Kinesis
+
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/db0174e7-b180-4f23-9516-8368ee6972f3" />
+
 Amazon Kinesis is a platform for real-time data streaming and analytics. It allows you to collect, process, and analyze streaming data at scale.
 
 **Kinesis Data Streams (KDS)**
