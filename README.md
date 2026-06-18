@@ -6,6 +6,8 @@
 
 Personal study notes for the **AWS Certified Machine Learning Engineer – Associate (MLA-C01)** exam. Notes are compiled from the Udemy course and organized by topic domain.
 
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/8af77eee-6d0b-4850-8568-516a7eaca344" />
+
 ---
 
 ## Resources
@@ -19,8 +21,10 @@ Personal study notes for the **AWS Certified Machine Learning Engineer – Assoc
 
 ## Table of Contents
 
-- [Resources](#resources)
-- [Notes](#notes)
+- [AWS Machine Learning Specialty — Study Notes](#aws-machine-learning-specialty--study-notes)
+  - [Resources](#resources)
+  - [Table of Contents](#table-of-contents)
+  - [Notes](#notes)
     - [00 — Introduction \& Exam Overview](#00--introduction--exam-overview)
       - [Target Candidate](#target-candidate)
       - [Domains Covered](#domains-covered)

@@ -1,11 +1,12 @@
-# 02 — Data Transformation, Integrity & Feature Engineering
+# 02 — Data Transformation, Integrity & Feature Engineering <!-- omit in toc -->
 
 > Source: [`02_MLA-C01_intro_data_transformation.pdf`](../udemy_notes/02_MLA-C01_intro_data_transformation.pdf)
 
 ---
 
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
+- [Why This Topic Matters](#why-this-topic-matters)
 - [Amazon EMR](#amazon-emr)
 - [Apache Spark on EMR](#apache-spark-on-emr)
 - [Feature Engineering](#feature-engineering)
@@ -14,18 +15,50 @@
 - [Handling Outliers](#handling-outliers)
 - [Common Transformations](#common-transformations)
 - [Amazon SageMaker — Data Preparation](#amazon-sagemaker--data-preparation)
+  - [SageMaker Overview](#sagemaker-overview)
+  - [SageMaker Ground Truth](#sagemaker-ground-truth)
+  - [SageMaker Data Wrangler](#sagemaker-data-wrangler)
+  - [SageMaker Model Monitor](#sagemaker-model-monitor)
+  - [SageMaker Clarify](#sagemaker-clarify)
+  - [SageMaker Feature Store](#sagemaker-feature-store)
+  - [SageMaker Canvas](#sagemaker-canvas)
 - [AWS Glue](#aws-glue)
 - [Amazon Athena](#amazon-athena)
+
+---
+
+## Why This Topic Matters
+
+**In machine learning**, data transformation and feature engineering are often the most impactful work you can do. Raw data is almost never model-ready: it contains missing values, outliers, imbalanced classes, and features at incompatible scales. The quality of your features determines the ceiling of your model's performance — no algorithm can compensate for poorly prepared data. As Andrew Ng famously noted, applied ML is basically feature engineering.
+
+**On the MLA-C01 exam**, this domain carries significant weight. Expect scenario-based questions that test your ability to:
+- Choose the right AWS service for a data preparation task (EMR vs. Glue vs. Data Wrangler vs. Athena)
+- Select the appropriate imputation or balancing technique given constraints
+- Identify which SageMaker tool detects bias, monitors drift, or explains predictions
+- Recognize when transformations like normalization, log scaling, or one-hot encoding are required
+
+> [!TIP]
+> The exam frequently presents distractors that blur the lines between similar services (e.g., Glue DataBrew vs. SageMaker Data Wrangler, or Ground Truth vs. A2I). Focus on each service's unique strengths and anti-patterns.
 
 ---
 
 ## Amazon EMR
 
 **What is EMR?**
+Amazon EMR (Elastic MapReduce) is a managed cluster platform that simplifies running big data frameworks, such as Apache Spark, Hive, and Presto, to process and __analyze vast amounts of data__.
+
 - Elastic MapReduce — managed Hadoop framework on EC2 instances
 - Includes Spark, HBase, Presto, Flink, Hive & more
 - EMR Notebooks for interactive development
 - Deep AWS integration (EC2, VPC, S3, CloudWatch, IAM, CloudTrail, Data Pipeline)
+
+Key points for the exam:
+* __Cluster Structure__: It consists of a Master node (manages the cluster), Core nodes (run tasks and store data), and Task nodes (run tasks only; ideal for cost-saving with Spot Instances)
+* __EMR Serverless__: A deployment option that allows you to run applications without configuring or managing clusters, automatically scaling resources as needed
+* __ML Role__: It is primarily used in the Data Preparation phase for massive-scale feature engineering and distributed data processing. It also supports Spark MLLib for distributed machine learning.
+* __Storage__: It utilizes EMRFS to access data in Amazon S3 as if it were a local HDFS file system
+
+
 
 **Cluster Node Types**
 
