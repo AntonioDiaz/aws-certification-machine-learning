@@ -47,6 +47,8 @@
 **What is EMR?**
 Amazon EMR (Elastic MapReduce) is a managed cluster platform that simplifies running big data frameworks, such as Apache Spark, Hive, and Presto, to process and __analyze vast amounts of data__.
 
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/59eca9b4-a52f-41f4-893c-ea89c6f0df63" />
+
 - Elastic MapReduce — managed Hadoop framework on EC2 instances
 - Includes Spark, HBase, Presto, Flink, Hive & more
 - EMR Notebooks for interactive development
