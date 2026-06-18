@@ -56,8 +56,7 @@ Key points for the exam:
 * __Cluster Structure__: It consists of a Master node (manages the cluster), Core nodes (run tasks and store data), and Task nodes (run tasks only; ideal for cost-saving with Spot Instances)
 * __EMR Serverless__: A deployment option that allows you to run applications without configuring or managing clusters, automatically scaling resources as needed
 * __ML Role__: It is primarily used in the Data Preparation phase for massive-scale feature engineering and distributed data processing. It also supports Spark MLLib for distributed machine learning.
-* __Storage__: It utilizes EMRFS to access data in Amazon S3 as if it were a local HDFS file system
-
+* __Storage__: It utilizes EMR_FS to access data in Amazon S3 as if it were a local HDFS file system.
 
 
 **Cluster Node Types**
@@ -69,10 +68,26 @@ Key points for the exam:
 | **Task** | Runs tasks only, no data hosting | Safe to remove; ideal for Spot instances |
 
 **EMR Usage Patterns**
-- **Transient clusters**: spin up, run job, terminate — cost efficient
-- **Long-running clusters**: use Reserved Instances to save cost
-- Submit jobs by connecting to master or via ordered steps in the console
-- **EMR Serverless**: AWS manages node scaling automatically; you choose runtime (Spark, Hive, Presto)
+
+| Pattern | Description | Best For |
+|---|---|---|
+| **Transient cluster** | Spin up → run job → terminate automatically | Batch ETL, periodic ML training jobs; minimizes idle cost |
+| **Long-running cluster** | Cluster stays alive between jobs | Interactive analytics, frequent ad-hoc queries; use Reserved Instances to offset cost |
+| **EMR Serverless** | No cluster to manage; AWS auto-scales workers per job | Infrequent/unpredictable workloads where cluster management is unwanted overhead |
+
+**How jobs are submitted:**
+- SSH into the master node and run commands directly (development/debugging)
+- Add ordered **Steps** in the console or via CLI — each step is a unit of work (e.g., a Spark submit command); steps execute sequentially and the cluster can auto-terminate when all steps complete
+- Use **EMR Studio** / notebooks for interactive development without SSH
+
+**Cost optimization tips:**
+- Use **Spot Instances** on task nodes — safe to interrupt since task nodes hold no HDFS data
+- Pair Spot task nodes with On-Demand core/master nodes for resilience
+- For long-running clusters, commit to **Reserved Instances** (1- or 3-year) on core/master nodes
+- Transient clusters with auto-termination eliminate idle charges entirely
+
+> [!TIP]
+> On the exam, "ETL job runs nightly" → transient cluster. "Data science team needs always-on notebooks" → long-running cluster with Reserved Instances. "No ops team to manage clusters" → EMR Serverless.
 
 > [!WARNING]
 > EMR Serverless application lifecycle is NOT fully automatic. You must call `CreateApplication`, `StartApplication`, `StopApplication`, and **`DeleteApplication`** explicitly to avoid excess charges.
