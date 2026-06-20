@@ -180,12 +180,44 @@ Feature engineering applies domain knowledge to create better features for model
 - Techniques: **PCA**, **K-Means**
 
 **TF-IDF (Term Frequency – Inverse Document Frequency)**
-- Measures how relevant a word is to a specific document vs. a corpus
-- Formula: `TF / DF` (or `TF * IDF`) — high score = important and unique to the document
-- Uses log of IDF to handle exponential word frequency distributions
-- Assumes "bag of words" representation; words can be hashed for efficiency
-- **N-grams**: extend TF-IDF to bigrams, trigrams for multi-word relevance
-- Spark makes TF-IDF practical at scale
+
+Measures how relevant a word is to a specific document relative to a corpus. A high score means the word appears often in this document but rarely across others — i.e., it is distinctive.
+
+**Components:**
+
+| Component | Formula | Intuition |
+|---|---|---|
+| **TF** (Term Frequency) | `count(term in doc) / total terms in doc` | How often the word appears in this document |
+| **IDF** (Inverse Doc Frequency) | `log(total docs / docs containing term)` | How rare the word is across the whole corpus |
+| **TF-IDF** | `TF × IDF` | High only when the word is both frequent here AND rare elsewhere |
+
+**Why log for IDF?**
+Word frequencies follow a power-law distribution (a few words appear exponentially more than others). Taking `log` compresses this range so common words like "the" don't drown out meaningful rare words.
+
+**Bag-of-words assumption:**
+TF-IDF treats a document as an unordered set of words — word position and grammar are ignored. This makes it fast and simple but loses semantic context (contrast with word embeddings/transformers).
+
+**Hashing trick:**
+Instead of building a full vocabulary index, words can be hashed to a fixed-size vector. Reduces memory and speeds up computation at the cost of potential (rare) hash collisions.
+
+**N-grams:**
+Extend TF-IDF beyond single words to capture multi-word phrases:
+- Bigrams: "machine learning", "New York"
+- Trigrams: "support vector machine"
+- Improves relevance for compound concepts; vocabulary size grows fast
+
+**Practical use cases:**
+- Search engine ranking and document retrieval
+- Text classification features (spam detection, topic classification)
+- Information retrieval preprocessing before passing to ML models
+
+**Limitations:**
+- Ignores word order and semantics ("dog bites man" = "man bites dog")
+- Struggles with synonyms (two documents about "car" vs. "automobile" score low similarity)
+- For richer representations, prefer **word embeddings** (Word2Vec, GloVe) or **transformer models** (BERT)
+
+> [!TIP]
+> On the exam, TF-IDF is the go-to answer for "how do you turn text into numerical features for a classical ML model." Spark MLLib has built-in `HashingTF` and `IDF` transformers that make this practical at scale.
 
 ---
 
