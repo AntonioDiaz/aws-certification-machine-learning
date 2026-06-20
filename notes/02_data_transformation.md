@@ -223,6 +223,15 @@ Extend TF-IDF beyond single words to capture multi-word phrases:
 
 ## Handling Missing Data
 
+Missing data is one of the most common real-world data quality problems. How you handle it affects both model accuracy and the validity of your conclusions — a poor imputation strategy can silently introduce bias.
+
+**Why data goes missing:**
+- **MCAR** (Missing Completely At Random): absence is unrelated to any value — e.g., a sensor randomly drops packets
+- **MAR** (Missing At Random): absence correlates with other observed variables — e.g., younger users skip an optional age field
+- **MNAR** (Missing Not At Random): absence correlates with the missing value itself — e.g., high earners skip the income field; hardest to handle without domain knowledge
+
+Understanding *why* data is missing guides which technique to apply.
+
 | Technique | Description | When to Use |
 |---|---|---|
 | **Mean/Median Replacement** | Replace with column mean (median if outliers present) | Fast, simple; not for categorical data |
