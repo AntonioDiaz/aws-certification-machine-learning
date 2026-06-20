@@ -326,6 +326,8 @@ Raw features are rarely in the right form for a model to consume directly. Commo
 
 SageMaker is AWS's fully managed ML platform, covering the entire lifecycle from data preparation through training to deployment. For the exam, the data preparation tooling is its own ecosystem — several distinct services that are easy to confuse because they overlap in capability. Understanding *which tool to reach for given a constraint* (no-code, scale, bias detection, labeling) is the core exam skill here.
 
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/4213ae82-692f-4f10-b4b1-b3fc5045c364" />
+
 **SageMaker data prep tools at a glance:**
 
 | Tool | Who uses it | Primary purpose |
