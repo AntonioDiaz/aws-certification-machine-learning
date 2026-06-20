@@ -308,6 +308,8 @@ Outliers are data points that differ significantly from the rest of the dataset.
 
 ## Common Transformations
 
+Raw features are rarely in the right form for a model to consume directly. Common transformations reshape, rescale, or re-encode features so that algorithms can learn effectively. Choosing the wrong transformation — or skipping one — is a frequent source of poor model performance.
+
 | Transformation | Description | Use Case |
 |---|---|---|
 | **Binning** | Group values into ranges (buckets) | Reduce precision noise; ordinal encoding of continuous data |
@@ -321,6 +323,20 @@ Outliers are data points that differ significantly from the rest of the dataset.
 ---
 
 ## Amazon SageMaker — Data Preparation
+
+SageMaker is AWS's fully managed ML platform, covering the entire lifecycle from data preparation through training to deployment. For the exam, the data preparation tooling is its own ecosystem — several distinct services that are easy to confuse because they overlap in capability. Understanding *which tool to reach for given a constraint* (no-code, scale, bias detection, labeling) is the core exam skill here.
+
+**SageMaker data prep tools at a glance:**
+
+| Tool | Who uses it | Primary purpose |
+|---|---|---|
+| **Data Wrangler** | Data scientists | Visual, no-code data transformation in Studio |
+| **Processing** | Engineers | Run custom containers for large-scale data prep |
+| **Ground Truth** | ML teams | Human labeling workflows with active learning |
+| **Feature Store** | ML platform teams | Centralized, reusable feature repository |
+| **Clarify** | Responsible AI teams | Bias detection and explainability |
+| **Model Monitor** | MLOps teams | Ongoing drift detection on deployed models |
+| **Canvas** | Business analysts | No-code end-to-end ML (upload CSV → predictions) |
 
 ### SageMaker Overview
 
