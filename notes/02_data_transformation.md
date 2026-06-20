@@ -249,6 +249,16 @@ Understanding *why* data is missing guides which technique to apply.
 
 ## Handling Unbalanced Data
 
+In a balanced dataset, classes are roughly equally represented. In an **unbalanced** (or imbalanced) dataset, one class — typically the event of interest — is far rarer than the other. This is the norm in many high-value ML problems.
+
+**Why it matters:**
+A model trained on heavily skewed data can achieve high accuracy by simply predicting the majority class every time — yet completely fail at the task it was built for. Accuracy is a misleading metric here; prefer **precision, recall, F1, or AUC-ROC**.
+
+**Common examples:**
+- Fraud detection: ~0.1% of transactions are fraudulent
+- Medical diagnosis: rare disease prevalence may be < 1%
+- Anomaly detection in logs or sensor data
+
 Unbalanced data: large discrepancy between positive (target) and negative cases — common in fraud detection, anomaly detection, etc.
 
 | Technique | Description | Notes |
