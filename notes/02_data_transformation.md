@@ -276,6 +276,19 @@ Unbalanced data: large discrepancy between positive (target) and negative cases 
 
 ## Handling Outliers
 
+Outliers are data points that differ significantly from the rest of the dataset. They can arise from measurement errors, data entry mistakes, or genuinely rare but real events. The key question is always: **does this outlier represent noise or signal?**
+
+**Why outliers matter:**
+- They can skew statistical measures (mean, variance) and distort model training
+- Linear models and distance-based algorithms (KNN, K-Means) are especially sensitive
+- Tree-based models (Random Forest, XGBoost) are more robust to outliers by nature
+
+**Detection approaches:**
+- **Standard deviation**: flag points beyond N×σ from the mean (common: 2σ or 3σ)
+- **IQR (Interquartile Range)**: flag points below Q1 − 1.5×IQR or above Q3 + 1.5×IQR; more robust to skewed distributions than σ
+- **Visual inspection**: box plots, scatter plots, histograms
+- **Algorithmic**: AWS Random Cut Forest, Isolation Forest, Local Outlier Factor
+
 **Standard Deviation approach:**
 - Variance (σ²) = average of squared differences from the mean
 - Standard Deviation (σ) = √variance
