@@ -281,6 +281,7 @@ In a balanced dataset, classes are roughly equally represented. In an **unbalanc
 **Why it matters:** 
 A model trained on heavily skewed data can achieve high accuracy by simply predicting the majority class every time — yet completely fail at the task it was built for. Accuracy is a misleading metric here; prefer **precision, recall, F1, or AUC-ROC**.
 
+
 **Common examples:**
 - Fraud detection: ~0.1% of transactions are fraudulent.
 - Medical diagnosis: rare disease prevalence may be < 1%.
@@ -296,8 +297,61 @@ Unbalanced data: large discrepancy between positive (target) and negative cases 
 | **Adjust threshold** | Raise classification probability threshold | Reduces false positives but increases false negatives |
 
 **SMOTE process:**
-1. For each minority sample, run K-nearest-neighbors
-2. Create new synthetic sample from the mean of the KNN result
+1. For each minority sample, run K-nearest-neighbors.
+2. Create new synthetic sample from the mean of the KNN result.
+
+---
+
+**Why Accuracy fails on imbalanced data**
+
+A model trained on imbalanced data can score deceptively high accuracy by simply always predicting the majority class — while completely failing at the task it was built for.
+
+> Example: 1,000 transactions, only 5 are fraud (0.5%). A model that always predicts "not fraud" gets 995/1000 = **99.5% accuracy**, yet never catches a single fraud case. Accuracy alone hides this failure.
+
+**Balanced Accuracy**
+
+Averages the recall of each class instead of looking at overall correctness, so minority-class performance can't be hidden by majority-class volume.
+
+`Balanced Accuracy = (Recall_positive_class + Recall_negative_class) / 2`
+
+> Same example: Recall(not fraud) = 100%, Recall(fraud) = 0% → Balanced Accuracy = (100% + 0%) / 2 = **50%** — exposes the model as no better than a coin flip on the class that actually matters.
+
+**Recall (Sensitivity)**
+
+*"Of all the actual positives, how many did I catch?"*
+
+`Recall = TP / (TP + FN)`
+
+Critical when **false negatives are costly** — e.g., fraud detection, disease diagnosis. You'd rather flag extra cases for review than let a real fraud slip through.
+
+**Precision**
+
+*"Of everything I flagged as positive, how many were actually positive?"*
+
+`Precision = TP / (TP + FP)`
+
+Critical when **false positives are costly** — e.g., blocking a legitimate customer's card causes friction and complaints.
+
+> Precision and Recall trade off against each other via the classification threshold: raising the threshold → ↑ precision, ↓ recall. Lowering it → ↑ recall, ↓ precision.
+
+**F1 Score**
+
+Harmonic mean of Precision and Recall — a single number that balances both, useful when comparing models and both error types matter roughly equally.
+
+`F1 = 2 × (Precision × Recall) / (Precision + Recall)`
+
+**AUC-ROC**
+
+Measures how well the model separates classes **across all possible thresholds**, not just one fixed cutoff (e.g., 0.5). Ranges from 0.5 (random guessing) to 1.0 (perfect separation). Useful for comparing model quality before committing to a specific threshold.
+
+| Metric | Question it answers | Use when... |
+|---|---|---|
+| **Accuracy** | % of all predictions correct | Classes are balanced. |
+| **Balanced Accuracy** | Average recall across classes | Imbalanced data, want one number. |
+| **Recall** | How many actual positives did I catch? | False negatives are costly (fraud, disease). |
+| **Precision** | How many flagged positives were real? | False positives are costly (spam, false alarms). |
+| **F1 Score** | Balance of Precision & Recall | Need one number that weighs both. |
+| **AUC-ROC** | Class separability across all thresholds | Comparing models independent of threshold. |
 
 ---
 
