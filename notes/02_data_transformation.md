@@ -251,7 +251,7 @@ Understanding *why* data is missing guides which technique to apply.
 
 In a balanced dataset, classes are roughly equally represented. In an **unbalanced** (or imbalanced) dataset, one class — typically the event of interest — is far rarer than the other. This is the norm in many high-value ML problems.
 
-**Why it matters:**
+**Why it matters:** 
 A model trained on heavily skewed data can achieve high accuracy by simply predicting the majority class every time — yet completely fail at the task it was built for. Accuracy is a misleading metric here; prefer **precision, recall, F1, or AUC-ROC**.
 
 **Common examples:**
@@ -259,7 +259,7 @@ A model trained on heavily skewed data can achieve high accuracy by simply predi
 - Medical diagnosis: rare disease prevalence may be < 1%
 - Anomaly detection in logs or sensor data
 
-Unbalanced data: large discrepancy between positive (target) and negative cases — common in fraud detection, anomaly detection, etc.
+Unbalanced data: large discrepancy between positive (target) and negative cases — common in fraud detection, anomaly detection, etc. The table below compares the main techniques for correcting this imbalance, each with a different trade-off between data fidelity and model bias risk.
 
 | Technique | Description | Notes |
 |---|---|---|
@@ -327,6 +327,7 @@ Raw features are rarely in the right form for a model to consume directly. Commo
 SageMaker is AWS's fully managed ML platform, covering the entire lifecycle from data preparation through training to deployment. For the exam, the data preparation tooling is its own ecosystem — several distinct services that are easy to confuse because they overlap in capability. Understanding *which tool to reach for given a constraint* (no-code, scale, bias detection, labeling) is the core exam skill here.
 
 <img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/4213ae82-692f-4f10-b4b1-b3fc5045c364" />
+&nbsp;
 
 **SageMaker data prep tools at a glance:**
 
