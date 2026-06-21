@@ -78,15 +78,15 @@ Key points for the exam:
 | **EMR Serverless** | No cluster to manage; AWS auto-scales workers per job | Infrequent/unpredictable workloads where cluster management is unwanted overhead |
 
 **How jobs are submitted:**
-- SSH into the master node and run commands directly (development/debugging)
-- Add ordered **Steps** in the console or via CLI — each step is a unit of work (e.g., a Spark submit command); steps execute sequentially and the cluster can auto-terminate when all steps complete
-- Use **EMR Studio** / notebooks for interactive development without SSH
+- SSH into the master node and run commands directly (development/debugging).
+- Add ordered **Steps** in the console or via CLI — each step is a unit of work (e.g., a Spark submit command); steps execute sequentially and the cluster can auto-terminate when all steps complete.
+- Use **EMR Studio** / notebooks for interactive development without SSH.
 
 **Cost optimization tips:**
-- Use **Spot Instances** on task nodes — safe to interrupt since task nodes hold no HDFS data
-- Pair Spot task nodes with On-Demand core/master nodes for resilience
-- For long-running clusters, commit to **Reserved Instances** (1- or 3-year) on core/master nodes
-- Transient clusters with auto-termination eliminate idle charges entirely
+- Use **Spot Instances** on task nodes — safe to interrupt since task nodes hold no HDFS data.
+- Pair Spot task nodes with On-Demand core/master nodes for resilience.
+- For long-running clusters, commit to **Reserved Instances** (1- or 3-year) on core/master nodes.
+- Transient clusters with auto-termination eliminate idle charges entirely.
 
 > [!TIP]
 > On the exam, "ETL job runs nightly" → transient cluster. "Data science team needs always-on notebooks" → long-running cluster with Reserved Instances. "No ops team to manage clusters" → EMR Serverless.
@@ -95,8 +95,8 @@ Key points for the exam:
 > EMR Serverless application lifecycle is NOT fully automatic. You must call `CreateApplication`, `StartApplication`, `StopApplication`, and **`DeleteApplication`** explicitly to avoid excess charges.
 
 **EMR Serverless: Pre-Initialized Capacity**
-- Spark adds **10% overhead** to requested driver/executor memory
-- Set initial capacity at least 10% above your job's actual requirements
+- Spark adds **10% overhead** to requested driver/executor memory.
+- Set initial capacity at least 10% above your job's actual requirements.
 
 **EMR Storage Options**
 
@@ -168,16 +168,43 @@ Key points for the exam:
 
 > "Applied machine learning is basically feature engineering." — Andrew Ng
 
-Feature engineering applies domain knowledge to create better features for model training:
-- Which features to use?
-- How to transform features?
-- How to handle missing data?
-- Should new features be derived from existing ones?
+Feature engineering is the process of using domain knowledge to select, transform, and create input variables (features) that make ML models more accurate. The algorithm learns from the features you give it — a model is only as good as its inputs.
+
+Feature engineering answers four core questions:
+- **Which features to use?** Not all columns in raw data are useful; some are noise, redundant, or leak the target.
+- **How to transform features?** Scale, encode, or reshape so models can consume them.
+- **How to handle missing data?** See [Handling Missing Data](#handling-missing-data).
+- **Should new features be derived?** Combine or decompose existing columns to expose hidden signals (e.g., `age_at_purchase = purchase_date − birth_date`).
+
+**Types of features:**
+
+| Type | Examples | Common treatment |
+|---|---|---|
+| Numerical (continuous) | Age, price, temperature | Normalize/standardize; log-transform if skewed |
+| Numerical (discrete) | Count of items, number of rooms | Treat as numeric or ordinal depending on range |
+| Categorical (nominal) | Country, color, product category | One-hot encoding or embedding |
+| Categorical (ordinal) | Rating (1–5), education level | Integer encoding preserving order |
+| Text | Reviews, descriptions | TF-IDF, word embeddings, BERT |
+| Date/time | Timestamps | Extract hour, day-of-week, season, time-since-event |
+| Binary | Is_fraud, has_clicked | Usually consumed as-is; check class balance |
+
+**Feature selection vs. feature extraction:**
+- **Selection**: pick a subset of existing features (filter by correlation, importance scores, or domain knowledge).
+- **Extraction**: create new features from existing ones (PCA reduces many correlated features into fewer uncorrelated components; TF-IDF extracts signal from raw text).
 
 **Curse of Dimensionality**
-- Too many features → sparse data → poor model performance
-- Solution: select the most relevant features (domain knowledge) or apply dimensionality reduction
-- Techniques: **PCA**, **K-Means**
+
+As the number of features grows, the volume of the feature space expands exponentially — training samples become sparse and models struggle to generalize. A model trained on 100 features with 1,000 samples has far too little data per dimension.
+
+- **Symptom**: model overfits, validation performance collapses as features are added.
+- **Solutions**:
+  - Remove low-variance or highly correlated features.
+  - Apply **PCA** (unsupervised linear dimensionality reduction; projects data onto principal components that capture most variance).
+  - Apply **K-Means** to cluster features or samples before training.
+  - Use regularization (L1/Lasso naturally zeroes out irrelevant features).
+
+> [!TIP]
+> On the exam, if a scenario describes "too many features" or "model overfits as more columns are added," the answer is almost always PCA or feature selection — not adding more data.
 
 **TF-IDF (Term Frequency – Inverse Document Frequency)**
 
@@ -202,19 +229,19 @@ Instead of building a full vocabulary index, words can be hashed to a fixed-size
 
 **N-grams:**
 Extend TF-IDF beyond single words to capture multi-word phrases:
-- Bigrams: "machine learning", "New York"
-- Trigrams: "support vector machine"
-- Improves relevance for compound concepts; vocabulary size grows fast
+- Bigrams: "machine learning", "New York".
+- Trigrams: "support vector machine".
+- Improves relevance for compound concepts; vocabulary size grows fast.
 
 **Practical use cases:**
-- Search engine ranking and document retrieval
-- Text classification features (spam detection, topic classification)
-- Information retrieval preprocessing before passing to ML models
+- Search engine ranking and document retrieval.
+- Text classification features (spam detection, topic classification).
+- Information retrieval preprocessing before passing to ML models.
 
 **Limitations:**
-- Ignores word order and semantics ("dog bites man" = "man bites dog")
-- Struggles with synonyms (two documents about "car" vs. "automobile" score low similarity)
-- For richer representations, prefer **word embeddings** (Word2Vec, GloVe) or **transformer models** (BERT)
+- Ignores word order and semantics ("dog bites man" = "man bites dog").
+- Struggles with synonyms (two documents about "car" vs. "automobile" score low similarity).
+- For richer representations, prefer **word embeddings** (Word2Vec, GloVe) or **transformer models** (BERT).
 
 > [!TIP]
 > On the exam, TF-IDF is the go-to answer for "how do you turn text into numerical features for a classical ML model." Spark MLLib has built-in `HashingTF` and `IDF` transformers that make this practical at scale.
@@ -226,9 +253,9 @@ Extend TF-IDF beyond single words to capture multi-word phrases:
 Missing data is one of the most common real-world data quality problems. How you handle it affects both model accuracy and the validity of your conclusions — a poor imputation strategy can silently introduce bias.
 
 **Why data goes missing:**
-- **MCAR** (Missing Completely At Random): absence is unrelated to any value — e.g., a sensor randomly drops packets
-- **MAR** (Missing At Random): absence correlates with other observed variables — e.g., younger users skip an optional age field
-- **MNAR** (Missing Not At Random): absence correlates with the missing value itself — e.g., high earners skip the income field; hardest to handle without domain knowledge
+- **MCAR** (Missing Completely At Random): absence is unrelated to any value — e.g., a sensor randomly drops packets.
+- **MAR** (Missing At Random): absence correlates with other observed variables — e.g., younger users skip an optional age field.
+- **MNAR** (Missing Not At Random): absence correlates with the missing value itself — e.g., high earners skip the income field; hardest to handle without domain knowledge.
 
 Understanding *why* data is missing guides which technique to apply.
 
@@ -255,9 +282,9 @@ In a balanced dataset, classes are roughly equally represented. In an **unbalanc
 A model trained on heavily skewed data can achieve high accuracy by simply predicting the majority class every time — yet completely fail at the task it was built for. Accuracy is a misleading metric here; prefer **precision, recall, F1, or AUC-ROC**.
 
 **Common examples:**
-- Fraud detection: ~0.1% of transactions are fraudulent
-- Medical diagnosis: rare disease prevalence may be < 1%
-- Anomaly detection in logs or sensor data
+- Fraud detection: ~0.1% of transactions are fraudulent.
+- Medical diagnosis: rare disease prevalence may be < 1%.
+- Anomaly detection in logs or sensor data.
 
 Unbalanced data: large discrepancy between positive (target) and negative cases — common in fraud detection, anomaly detection, etc. The table below compares the main techniques for correcting this imbalance, each with a different trade-off between data fidelity and model bias risk.
 
@@ -279,15 +306,15 @@ Unbalanced data: large discrepancy between positive (target) and negative cases 
 Outliers are data points that differ significantly from the rest of the dataset. They can arise from measurement errors, data entry mistakes, or genuinely rare but real events. The key question is always: **does this outlier represent noise or signal?**
 
 **Why outliers matter:**
-- They can skew statistical measures (mean, variance) and distort model training
-- Linear models and distance-based algorithms (KNN, K-Means) are especially sensitive
-- Tree-based models (Random Forest, XGBoost) are more robust to outliers by nature
+- They can skew statistical measures (mean, variance) and distort model training.
+- Linear models and distance-based algorithms (KNN, K-Means) are especially sensitive.
+- Tree-based models (Random Forest, XGBoost) are more robust to outliers by nature.
 
 **Detection approaches:**
-- **Standard deviation**: flag points beyond N×σ from the mean (common: 2σ or 3σ)
-- **IQR (Interquartile Range)**: flag points below Q1 − 1.5×IQR or above Q3 + 1.5×IQR; more robust to skewed distributions than σ
-- **Visual inspection**: box plots, scatter plots, histograms
-- **Algorithmic**: AWS Random Cut Forest, Isolation Forest, Local Outlier Factor
+- **Standard deviation**: flag points beyond N×σ from the mean (common: 2σ or 3σ).
+- **IQR (Interquartile Range)**: flag points below Q1 − 1.5×IQR or above Q3 + 1.5×IQR; more robust to skewed distributions than σ.
+- **Visual inspection**: box plots, scatter plots, histograms.
+- **Algorithmic**: AWS Random Cut Forest, Isolation Forest, Local Outlier Factor.
 
 **Standard Deviation approach:**
 - Variance (σ²) = average of squared differences from the mean
