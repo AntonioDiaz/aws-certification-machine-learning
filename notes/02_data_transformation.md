@@ -170,6 +170,8 @@ Key points for the exam:
 
 Feature engineering is the process of using domain knowledge to select, transform, and create input variables (features) that make ML models more accurate. The algorithm learns from the features you give it — a model is only as good as its inputs.
 
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/fd20348e-9fc1-406b-bf61-e07bf6bba8db" />
+
 Feature engineering answers four core questions:
 - **Which features to use?** Not all columns in raw data are useful; some are noise, redundant, or leak the target.
 - **How to transform features?** Scale, encode, or reshape so models can consume them.
