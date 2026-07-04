@@ -59,8 +59,6 @@ AWS Managed AI Services are **pre-trained, fully managed ML capabilities** expos
 
 ## Amazon Comprehend
 
-<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/9f12c712-58d6-4276-8d55-9367f38c8737" />
-
 Amazon Comprehend is a fully managed, serverless **Natural Language Processing (NLP)** service. It uses machine learning to extract meaning and structure from unstructured text — without requiring you to train a model or manage any infrastructure.
 
 **What Comprehend can detect from raw text:**
@@ -97,6 +95,9 @@ Think of it as training a classifier specifically for your business's document t
 
 > [!IMPORTANT]
 > Custom Classification requires labeled training data in S3. The workflow is: Training Data → S3 → Comprehend (trains) → Custom Classifier → classify new documents.
+
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/9f12c712-58d6-4276-8d55-9367f38c8737" />
+
 
 ---
 
