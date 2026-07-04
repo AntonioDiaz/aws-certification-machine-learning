@@ -34,8 +34,6 @@
 
 ---
 
-<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/263eb86d-db7d-489f-bce0-5cb16b730756" />
-
 ## Why This Topic Matters
 
 AWS Managed AI Services are **pre-trained, fully managed ML capabilities** exposed as simple APIs. You call the API, AWS does the heavy lifting — no data science or ML infrastructure required. This makes them the fastest path from a business problem to a working AI feature.
@@ -55,9 +53,13 @@ AWS Managed AI Services are **pre-trained, fully managed ML capabilities** expos
 > [!TIP]
 > The exam loves scenario-based questions: "A company needs to extract entities from customer emails" → Comprehend; "detect inappropriate content in images" → Rekognition Content Moderation; "build a voice chatbot" → Lex + Transcribe + Polly.
 
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/263eb86d-db7d-489f-bce0-5cb16b730756" />
+
 ---
 
 ## Amazon Comprehend
+
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/9f12c712-58d6-4276-8d55-9367f38c8737" />
 
 Amazon Comprehend is a fully managed, serverless **Natural Language Processing (NLP)** service. It uses machine learning to extract meaning and structure from unstructured text — without requiring you to train a model or manage any infrastructure.
 
