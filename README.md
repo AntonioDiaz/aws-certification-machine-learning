@@ -89,8 +89,10 @@ Topics: data types, 3 V's, warehouse vs lake vs lakehouse, ETL pipelines, data f
 Topics: EMR (clusters, Serverless, Spark, MLLib), feature engineering, TF-IDF, missing data imputation, unbalanced data (SMOTE), outlier handling, transformations (binning, encoding, normalization), SageMaker (Data Wrangler, Ground Truth, Model Monitor, Clarify, Feature Store, Canvas), AWS Glue (Crawler, Studio, DataBrew, Data Quality), Amazon Athena.
 
 ### 03 — AWS Managed ML Services
-[`03_MLA-C01_aws_manage_services.pdf`](udemy_notes/03_MLA-C01_aws_manage_services.pdf)
-Rekognition, Comprehend, Transcribe, Translate, Forecast, Personalize, and other AI/ML managed services.
+
+[Full notes →](notes/03_aws_managed_services.md)
+
+Topics: Comprehend (NLP, Custom Classification, NER, Custom Entity Recognition), Translate, Transcribe (Toxicity Detection, Custom Vocabularies, Custom Language Models), Polly (SSML, Lexicons), Rekognition (Custom Labels, Content Moderation), Lex, Personalize (Recipes), Textract, Kendra, Amazon A2I, EC2 for ML, AWS Trainium & Inferentia, Lookout (Metrics, Equipment, Vision), Fraud Detector.
 
 ### 04 — Amazon SageMaker
 [`04_MLA-C01_sagemaker.pdf`](udemy_notes/04_MLA-C01_sagemaker.pdf)
