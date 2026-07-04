@@ -34,6 +34,8 @@
 
 ---
 
+<img width="2752" height="1536" alt="Image" src="https://github.com/user-attachments/assets/263eb86d-db7d-489f-bce0-5cb16b730756" />
+
 ## Why This Topic Matters
 
 AWS Managed AI Services are **pre-trained, fully managed ML capabilities** exposed as simple APIs. You call the API, AWS does the heavy lifting — no data science or ML infrastructure required. This makes them the fastest path from a business problem to a working AI feature.
