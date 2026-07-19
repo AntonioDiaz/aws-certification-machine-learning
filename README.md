@@ -95,8 +95,10 @@ Topics: EMR (clusters, Serverless, Spark, MLLib), feature engineering, TF-IDF, m
 Topics: Comprehend (NLP, Custom Classification, NER, Custom Entity Recognition), Translate, Transcribe (Toxicity Detection, Custom Vocabularies, Custom Language Models), Polly (SSML, Lexicons), Rekognition (Custom Labels, Content Moderation), Lex, Personalize (Recipes), Textract, Kendra, Amazon A2I, EC2 for ML, AWS Trainium & Inferentia, Lookout (Metrics, Equipment, Vision), Fraud Detector.
 
 ### 04 — Amazon SageMaker
-[`04_MLA-C01_sagemaker.pdf`](udemy_notes/04_MLA-C01_sagemaker.pdf)
-SageMaker Studio, training jobs, built-in algorithms, pipelines, endpoints, and inference patterns.
+
+[Full notes →](notes/04_sagemaker.md)
+
+Topics: SageMaker workflow (Processing, training jobs, deployment), input modes (File, Fast File, Pipe, FSx for Lustre, EFS), Batch Transform vs. endpoints, Neo, Elastic Inference, Shadow Testing, and all 18 built-in algorithms (Linear Learner, XGBoost, LightGBM, Seq2Seq, DeepAR, BlazingText, Object2Vec, Object Detection, Image Classification, Semantic Segmentation, Random Cut Forest, NTM, LDA, KNN, K-Means, PCA, Factorization Machines, IP Insights).
 
 ### 05 — Model Training, Tuning & Evaluation
 [`05_MLA-C01_model_training_tunning_evaluation.pdf`](udemy_notes/05_MLA-C01_model_training_tunning_evaluation.pdf)
