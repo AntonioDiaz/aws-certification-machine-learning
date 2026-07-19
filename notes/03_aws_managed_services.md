@@ -454,7 +454,49 @@ Amazon EC2 (Elastic Compute Cloud) is the underlying Infrastructure-as-a-Service
 **Key storage choices for ML workloads:**
 - **EBS**: persistent block storage; survives instance stop/start.
 - **EFS**: shared file system across multiple instances; useful for distributed training.
-- **EC2 Instance Store**: ephemeral, high-speed hardware-local storage; lost on stop.
+- **EC2 Instance Store**: ephemeral, high-speed hardware-local storage; lost on stop; best for temporary caching of training data or checkpoints.
+
+**EC2 instance families relevant to ML:**
+
+Choosing the right instance family is a common exam theme — match the workload to the hardware profile.
+
+| Family | Type | Best For |
+|---|---|---|
+| **T, M** | General purpose | Notebooks, light preprocessing, small experiments |
+| **C** | Compute optimized | CPU-bound feature engineering, classical ML training |
+| **R, X** | Memory optimized | In-memory datasets, large feature stores, data prep |
+| **P** (P3, P4, P5) | GPU — accelerated computing | Deep learning **training** on large models |
+| **G** (G4, G5, G6) | GPU — accelerated computing | Deep learning **inference**, graphics, lighter training |
+| **Trn** (Trn1) | AWS Trainium | Cost-efficient large-scale deep learning **training** |
+| **Inf** (Inf1, Inf2) | AWS Inferentia | Cost-efficient high-throughput **inference** |
+
+> [!TIP]
+> On the exam: "train a large deep learning model" → P-family (GPU) or Trn (Trainium). "Serve predictions cheaply at scale" → Inf (Inferentia) or G-family. "CPU-bound classical ML / data prep" → C or M family.
+
+**EC2 pricing models (cost optimization):**
+
+Cost optimization scenarios appear frequently on the exam. Match the purchasing option to the workload's tolerance for interruption and commitment.
+
+| Pricing Model | Description | Best For |
+|---|---|---|
+| **On-Demand** | Pay per second/hour, no commitment | Short-lived, unpredictable workloads; dev/test |
+| **Reserved Instances** | 1- or 3-year commitment; up to ~72% discount | Steady-state, always-on workloads (e.g., persistent endpoints) |
+| **Savings Plans** | Commit to $/hour spend for 1–3 years; flexible across families | Predictable spend with flexibility on instance type |
+| **Spot Instances** | Use spare capacity; up to ~90% discount; can be interrupted | Fault-tolerant, interruptible training jobs |
+| **Dedicated Hosts/Instances** | Physical server isolation | Compliance / licensing requirements |
+
+> [!IMPORTANT]
+> **Spot Instances for ML training**: because training can checkpoint and resume, it is an ideal fault-tolerant workload for Spot. SageMaker exposes this as **Managed Spot Training**, which can reduce training costs by up to **90%**. Spot instances can be reclaimed with a 2-minute warning, so always checkpoint to S3.
+
+**Distributed training — networking:**
+
+When training spans multiple GPU instances, inter-node network speed becomes the bottleneck. Two features address this:
+
+- **Cluster Placement Group**: packs instances close together on the same high-bandwidth, low-latency network segment — essential for multi-node distributed training.
+- **Elastic Fabric Adapter (EFA)**: a network interface for EC2 that accelerates inter-node communication for tightly-coupled HPC and distributed ML workloads (integrates with NCCL for GPU training).
+
+> [!TIP]
+> On the exam: "speed up multi-node distributed deep learning training" → Cluster Placement Group + Elastic Fabric Adapter (EFA).
 
 ---
 
