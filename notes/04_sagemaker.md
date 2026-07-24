@@ -62,6 +62,8 @@ The SageMaker lifecycle is a continuous loop:
 2. **Train and evaluate a model** — using built-in algorithms or your own code.
 3. **Deploy the model and evaluate results in production** — then feed learnings back into the next iteration.
 
+<img width="2752" alt="Image" src="https://github.com/user-attachments/assets/58d3dea3-0e34-4298-9296-a6555d0f26db" />
+
 **Core architecture:**
 
 | Component | Role |
