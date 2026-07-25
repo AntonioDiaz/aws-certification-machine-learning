@@ -40,7 +40,11 @@
 
 ## Why This Topic Matters
 
-Amazon SageMaker is AWS's fully managed platform built to handle the **entire machine learning workflow**: fetch and prepare data → train and evaluate a model → deploy and monitor it in production. Rather than assembling infrastructure yourself, SageMaker provides managed building blocks for each stage.
+Amazon SageMaker is AWS's fully managed platform built to handle the **entire machine learning workflow**: 
+1. fetch and prepare data
+2. train and evaluate a model
+3. deploy and monitor it in production. 
+Rather than assembling infrastructure yourself, SageMaker provides managed building blocks for each stage.
 
 **SageMaker carries the largest share of MLA-C01 exam questions.** Expect scenarios that test:
 - Which built-in algorithm fits a given problem (classification, forecasting, clustering, anomaly detection).
@@ -50,7 +54,12 @@ Amazon SageMaker is AWS's fully managed platform built to handle the **entire ma
 - How to deploy: real-time endpoint vs. Batch Transform.
 
 > [!TIP]
-> You do not need to memorize every hyperparameter. Focus on: **what each algorithm solves**, **its expected input format**, and **whether it needs GPU**. These three axes cover most exam questions.
+> You do not need to memorize every hyperparameter. 
+> Focus on:
+>  1. **what each algorithm solves**
+>  2. **Its expected input format**
+>  3. **Whether it needs GPU** 
+> These three axes cover most exam questions.
 
 ---
 
