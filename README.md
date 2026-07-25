@@ -12,10 +12,10 @@ Personal study notes for the **AWS Certified Machine Learning Engineer – Assoc
 
 ## Resources
 
-- [AWS Certified Machine Learning Engineer – Associate (MLA-C01)](https://aws.amazon.com/es/certification/certified-machine-learning-engineer-associate/) — official exam page (exam guide, sample questions, scheduling)
-- [AWS Skill Builder](https://skillbuilder.aws/) — official learning platform with practice exams and courses
-- [SageMaker Documentation](https://docs.aws.amazon.com/sagemaker/)
-- [Amazon Bedrock Documentation](https://docs.aws.amazon.com/bedrock/)
+- [AWS Certified Machine Learning Engineer – Associate (MLA-C01)](https://aws.amazon.com/es/certification/certified-machine-learning-engineer-associate/) — official exam page (exam guide, sample questions, scheduling).
+- [AWS Skill Builder](https://skillbuilder.aws/) — official learning platform with practice exams and courses.
+- [SageMaker Documentation](https://docs.aws.amazon.com/sagemaker/).
+- [Amazon Bedrock Documentation](https://docs.aws.amazon.com/bedrock/).
 
 ---
 
@@ -54,9 +54,9 @@ All notes are stored as PDFs inside the [`udemy_notes/`](udemy_notes/) folder.
 
 #### Target Candidate
 The exam is aimed at engineers with:
-- ~1 year of hands-on experience with SageMaker and other ML engineering services
-- ~1 year of background in software development, DevOps, data engineering, or data science
-- Working knowledge of ML algorithms, data engineering fundamentals, and CI/CD practices
+- ~1 year of hands-on experience with SageMaker and other ML engineering services.
+- ~1 year of background in software development, DevOps, data engineering, or data science.
+- Working knowledge of ML algorithms, data engineering fundamentals, and CI/CD practices.
 
 > **Not required:** designing end-to-end ML solutions from scratch, or depth in NLP / Computer Vision.
 

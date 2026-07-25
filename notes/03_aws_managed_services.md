@@ -144,6 +144,9 @@ Custom models extend Comprehend for both entity recognition and document classif
   - Both accounts must be in the **same region**.
   - The import can be done directly from the Comprehend console.
 
+> [!WARNING]
+> Cross-account model copy only works **within the same region**. A scenario that copies a custom model from `us-east-1` to `eu-west-1` requires retraining in the target region, not an import.
+
 ---
 
 ## Amazon Translate
@@ -293,6 +296,9 @@ Content Moderation automatically detects **inappropriate, unwanted, or offensive
 2. If confidence is below threshold → Amazon A2I human review queue.
 3. Reviewed data can feed back to improve the model.
 
+> [!WARNING]
+> Content moderation is split by **modality**, and the exam mixes them deliberately: images and video → Rekognition Content Moderation; audio → Transcribe Toxicity Detection; plain text → Comprehend. Picking the right service means first identifying what the input actually is.
+
 ---
 
 ## Amazon Lex
@@ -333,6 +339,9 @@ Amazon Personalize is a fully managed ML service that delivers **real-time, pers
 4. Applications call the Personalize API to get personalized recommendations per user.
 
 **Use cases:** e-commerce product recommendations, media content suggestions, targeted marketing emails.
+
+> [!WARNING]
+> Personalize is built on **user-item interaction data**. Without a history of interactions it has nothing to learn from, so a cold-start scenario with no behavioral data is not a Personalize answer.
 
 > [!TIP]
 > On the exam: "recommend products to users based on past behavior" → Amazon Personalize. It is not a general ML service — it is purpose-built for recommendations.
@@ -432,6 +441,9 @@ Amazon A2I adds a **human review layer** on top of any ML prediction pipeline. W
 | **When** | Before training | After deployment (production) |
 | **Purpose** | Label training data | Review live ML predictions |
 | **Output** | Labeled dataset | Reviewed prediction, feedback loop |
+
+> [!WARNING]
+> A2I does not label a training dataset. If the scenario is "we need labeled data before we can train", the answer is Ground Truth — reaching for A2I there is the single most common trap in this domain.
 
 ---
 

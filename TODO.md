@@ -32,21 +32,20 @@ Conversión de PDFs de `udemy_notes/` a notas Markdown en `notes/`. Ordenado por
 
 Notas ya escritas que no cumplen las convenciones de `CLAUDE.md`.
 
-- [ ] **`notes/01_data_ingestion_storage.md` — es el fichero más flojo del repo.** No tiene sección `## Why This Topic Matters`, no usa subsecciones `###`, y no incluye ningún callout (`[!TIP]` / `[!IMPORTANT]` / `[!WARNING]`). Es el único que no sigue el patrón de 02–04.
-- [ ] **Regla del punto final en `notes/01_data_ingestion_storage.md`.** Unos 87 bullets no terminan en punto.
-- [ ] **Regla del punto final en `notes/02_data_transformation.md`.** Unos 122 bullets no terminan en punto.
-- [ ] **Regla del punto final en `README.md`.** Unos 7 bullets no terminan en punto.
-- [ ] **Añadir intros en prosa por sección en `notes/01_data_ingestion_storage.md`.** Cada sección mayor debe explicar el *por qué* y el modelo mental antes de entrar en bullets o tablas.
-- [ ] **Equilibrar el uso de callouts.** `03_aws_managed_services.md` tiene 18 `[!TIP]` pero ningún `[!WARNING]`, y `02_data_transformation.md` solo tiene 1.
+- [x] **`notes/01_data_ingestion_storage.md` — es el fichero más flojo del repo.** Reescrito: añadida `## Why This Topic Matters`, 31 subsecciones `###` y 18 callouts.
+- [x] **Regla del punto final en `notes/01_data_ingestion_storage.md`.**
+- [x] **Regla del punto final en `notes/02_data_transformation.md`.** 122 bullets corregidos.
+- [x] **Regla del punto final en `README.md`.** 7 bullets corregidos.
+- [x] **Añadir intros en prosa por sección en `notes/01_data_ingestion_storage.md`.**
+- [x] **Equilibrar el uso de callouts.** `03` pasa de 0 a 4 `[!WARNING]` y `02` de 1 a 4.
 
 > [!NOTE]
-> Los ficheros `03_aws_managed_services.md` y `04_sagemaker.md` ya cumplen la regla del punto final. El retrofit solo afecta a 01, 02 y al README.
-
+> Los cuatro ficheros de `notes/` y el `README.md` cumplen ya la regla del punto final. Mantenerla al convertir los temas 05–12.
 ---
 
 ## Arreglos puntuales
 
-- [ ] **Carácter `†` accidental en `notes/04_sagemaker.md`.** Aparece en el heading `## Instance Type Cheat Sheet†` y en su entrada del TOC. Revertirlo antes de commitear.
+- [x] **Carácter `†` accidental en `notes/04_sagemaker.md`.** Revertido.
 - [ ] **Título del `README.md` incorrecto.** Dice "AWS Machine Learning **Specialty**" cuando el examen es "Machine Learning Engineer – **Associate**" (MLA-C01).
 - [ ] **Frase desactualizada en `README.md` (línea 50).** Dice "All notes are stored as PDFs inside `udemy_notes/`", pero ya hay 4 temas convertidos a Markdown.
 - [ ] **Tabla de dominios del `README.md` desalineada con `CLAUDE.md`.** Los nombres de los 11 dominios no cuadran del todo con el mapa por fichero de notas.
