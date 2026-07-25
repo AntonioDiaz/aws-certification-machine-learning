@@ -51,6 +51,13 @@ El backlog vivo está en [TODO.md](TODO.md). Consúltalo antes de empezar una ta
 - Passing score: 720/1000 · 65 questions · 130 minutes
 
 
+## Git Workflow
+
+- **Los commits y los push los hace el usuario, siempre.** No ejecutes `git commit`, `git push`, `git tag` ni ninguna operación que escriba en el historial o en el remoto.
+- Deja los cambios en el working tree y resume qué has tocado para que el usuario los revise y commitee.
+- Esto aplica igual a subagentes: no delegues la parte de git en ningún agente.
+- Sí puedes usar comandos de git de solo lectura (`status`, `diff`, `log`, `show`) para inspeccionar el estado.
+
 ## Documentation Style
 - Todas las frases en archivos .md deben terminar con punto (.)
 - Aplica esto a notas de estudio, README, y cualquier markdown del repo
