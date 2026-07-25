@@ -12,6 +12,7 @@ Personal study notes for the **AWS Certified Machine Learning Engineer – Assoc
 notes/          — Markdown study notes (the primary deliverable; currently topics 01–04)
 udemy_notes/    — Source PDFs from the Udemy course (read-only reference material)
 README.md       — Index with exam overview, domain breakdown, and links to each notes file
+TODO.md         — Living backlog: topics left to convert, formatting debt, fixes
 ```
 
 Each note file maps 1-to-1 to a PDF in `udemy_notes/` and expands on it with structured Markdown.
@@ -37,6 +38,10 @@ Each note file maps 1-to-1 to a PDF in `udemy_notes/` and expands on it with str
 | `03_aws_managed_services.md` | AWS Managed AI Services (Comprehend, Rekognition, Transcribe, Textract, etc.) |
 | `04_sagemaker.md` | Amazon SageMaker (workflow, training, deployment, built-in tooling) |
 | Topics 05–12 | Still in PDF form — not yet converted to Markdown |
+
+## Pending Work
+
+El backlog vivo está en [TODO.md](TODO.md). Consúltalo antes de empezar una tarea nueva y actualízalo al completar un tema o un arreglo.
 
 ## Key Exam Facts to Keep in Mind
 
