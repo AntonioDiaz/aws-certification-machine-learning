@@ -9,7 +9,7 @@ Personal study notes for the **AWS Certified Machine Learning Engineer – Assoc
 ## Repository Layout
 
 ```
-notes/          — Markdown study notes (the primary deliverable; currently topics 01–02)
+notes/          — Markdown study notes (the primary deliverable; currently topics 01–04)
 udemy_notes/    — Source PDFs from the Udemy course (read-only reference material)
 README.md       — Index with exam overview, domain breakdown, and links to each notes file
 ```
@@ -34,7 +34,9 @@ Each note file maps 1-to-1 to a PDF in `udemy_notes/` and expands on it with str
 |---|---|
 | `01_data_ingestion_storage.md` | Data Ingestion & Storage (S3, Kinesis, MSK, EBS/EFS/FSx) |
 | `02_data_transformation.md` | Data Transformation, Feature Engineering (EMR, Glue, SageMaker tooling, Athena) |
-| Topics 03–12 | Still in PDF form — not yet converted to Markdown |
+| `03_aws_managed_services.md` | AWS Managed AI Services (Comprehend, Rekognition, Transcribe, Textract, etc.) |
+| `04_sagemaker.md` | Amazon SageMaker (workflow, training, deployment, built-in tooling) |
+| Topics 05–12 | Still in PDF form — not yet converted to Markdown |
 
 ## Key Exam Facts to Keep in Mind
 
