@@ -165,7 +165,10 @@ Once trained, the model is saved to S3 and can be deployed in **two main ways**:
 | **Shadow Testing** | Route a copy of live traffic to a new model to catch regressions before promoting it. |
 
 > [!TIP]
-> On the exam: "predictions on an entire dataset overnight" → **Batch Transform**. "Low-latency predictions from an app" → **persistent endpoint**. "Validate a new model against the live one without user impact" → **Shadow Testing**.
+> On the exam:  
+> "predictions on an entire dataset overnight" → **Batch Transform**.  
+> "Low-latency predictions from an app" → **persistent endpoint**.  
+> "Validate a new model against the live one without user impact" → **Shadow Testing**.
 
 ---
 
