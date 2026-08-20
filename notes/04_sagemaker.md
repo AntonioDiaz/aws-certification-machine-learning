@@ -186,7 +186,9 @@ Input mode determines **how training data gets from storage into the training co
 | **Amazon EFS** | Mounts an existing EFS file system. Data must **already be in EFS**; requires VPC. | Data already living in EFS shared across teams. |
 
 > [!IMPORTANT]
-> **File Mode** waits for the full download before training begins; **Fast File Mode** starts immediately. For massive datasets where download time dominates, Fast File Mode or FSx for Lustre is the answer.
+> **File Mode** waits for the full download before training begins;  
+> **Fast File Mode** starts immediately.  
+> For massive datasets where download time dominates, Fast File Mode or FSx for Lustre is the answer.
 
 ---
 
